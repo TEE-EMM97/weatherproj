@@ -8,6 +8,7 @@
   let nameText = document.querySelector(".name");
   let desc = document.querySelector(".desc");
   let temp = document.querySelector(".temp");
+  let tempIcon = document.querySelector('.tempIcon')
   let windSp = document.querySelector(".windSp");
   let feelsLike = document.querySelector(".feel");
   let lat, lon;
@@ -84,9 +85,13 @@
         let tempVal = Math.round(data.main.temp);
         let descVal = data.weather[0].description;
         let feelVal = Math.round(data.main.feels_like);
-        let windVal = Math.round(data.wind.speed);
+        let windVal = Math.round(data.wind.speed);  
+        let stylingClass = ['dot', 'position-absolute', 'bottom-50', 'end-50'];
 
         nameText.innerHTML = `${nameVal}, ${ctry}`;
+      
+        tempIcon.classList.add(...stylingClass);
+        tempIcon.innerHTML = `<div class="position-absolute" id="dot2"></div>`;
         temp.innerHTML = `${tempVal}`;
         desc.innerHTML = `desc: ${descVal}`;
         windSp.innerHTML = "wind speed: " + windVal;
@@ -124,8 +129,8 @@
 
       .catch((err) => alert("Cannot get browser location."));
   });
-
-  getDow()
-  getLocation()
+  
+  // getDow()
+  // getLocation()
 
 })();
