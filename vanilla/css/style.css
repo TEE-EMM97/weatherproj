@@ -1,0 +1,158 @@
+/* Import Partials */
+@import url(./partials/_global.css);
+
+@import url(./partials/_variable.css);
+
+
+/* variables */
+
+/* reset */
+
+/* base styles */
+
+/* fonts */
+
+/* mobile styles */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html { font-size: 100%; }
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5; 
+  background-color: var(--bodybgcolour);
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+
+img {
+  max-width: 100%;
+}
+
+.name {padding-top: .75rem;}
+
+.search-content {
+  position: relative;
+}
+
+/*Add some cool style to the input*/
+.search-bar {
+  height: 2.8em;
+ /*Start shrink*/
+  width: 2.8em;
+  padding: 8px;
+  font-size: 16px;
+  border: 0;
+  color: var(--innerDeg);
+  background-color: var(--bodybgcolour);
+  /* box-shadow: 0px 3px 19px 3px rgba(15, 15, 15, 0.2); */
+ /*Setup some transition for the expand animation*/
+  transition: all, 0.7s;
+ /*Add placeholder style (Only for Chrome)*/
+}
+.search-bar:focus-within {
+  outline: 0;
+ /*We just need to change the width*/
+  width: 10rem;
+  border-bottom: 1px solid var(--innerDeg);
+  /* box-shadow: 0px 0px 10px 0.3px green; */
+}
+
+.search-content .search-bar:focus-within::placeholder {
+ /*Show it on input expand*/
+  color: #535c68;
+  font-size: 16px;
+  width: 1px;
+}
+.search-content .search-bar::placeholder {
+ /*Start hidden since the input is shrunk*/
+  color: transparent;
+}
+
+
+/*Absolute positioning for putting it inside the input to look like a button icon*/
+.icon-con {
+  position: absolute;
+  top: 11px;
+  right: 21px;
+  width: 32px;
+  height: 31px;
+  cursor: pointer;
+ /*We create the Search Icon with borders and the after CSS peudo-element*/
+}
+.icon-con #search-icon {
+ /*Search icon (Circle)*/
+  position: relative;
+  left: 22px;
+  width: 60%;
+  height: 60%;
+  opacity: 1;
+  border-radius: 50%;
+  transition: opacity 0.25s ease, transform 0.43s ease-in-out;
+  color: brown;
+  /* border: 3px solid green; */
+  /* box-shadow: 0px 0px 1px 0.2px rgba(170, 229, 218, 0.761); */
+ /*Search Icon (line)*/
+}
+.icon-con #search-icon:after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  right: -2px;
+  width: 4px;
+  border-radius: 3px;
+  transform: rotate(-35deg);
+  height: 10px;
+  /* background-color: green; */
+  /* box-shadow: 0px 0px 1px 0.2px rgba(170, 229, 218, 0.761); */
+}
+
+.angled_container {
+  height: 22rem;
+  position: relative;
+  overflow: hidden;
+  top: 0;
+}
+.angled_container:before,
+.angled_container:after {
+  content: "";
+  width: 100%; height: 100%;
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+}
+.angled_container:before {
+  background-color: #606060;
+  transform: skewY(12deg);
+  transform-origin: left top;
+}
+.angled_container:after {
+  background-color: #6bb2c6;
+  transform: skewY(-12deg);
+  transform-origin: right top;
+}
+
+#bg-pic {
+  height: 50vh;
+}
+
+/* transform-origin:0 100%;
+    transform: rotate(45deg); */
+/* .temp {
+  font-size: 32rem;
+  position: relative;
+  z-index: 99;
+} */
+
+@media only screen and (max-width: 480px) {
+  
+}

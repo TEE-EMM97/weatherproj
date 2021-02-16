@@ -1,0 +1,9 @@
+/* .degSym {
+  background: var(--outerDeg);
+	border-radius: 50%;
+	height:6.25rem;
+	width:6.25rem;
+    box-shadow: var(--innerDeg) 0 0 0 1.875rem inset , var(--outerDeg) 0 0 0 5.625rem;
+    -webkit-box-shadow:  var(--innerDeg) 0 0 0 1.875rem inset , var(--outerDeg) 0 0 0 5.625rem;
+    -moz-box-shadow:  var(--innerDeg) 0 0 0 1.875rem inset , var(--outerDeg) 0 0 0 5.625rem;
+} */
