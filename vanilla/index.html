@@ -15,11 +15,11 @@
 
 <body>
   <main role="main">
-    <div class="w-100 mx-auto p-3" id="bg-pic">
+    <div class="w-100 mx-auto position-relative " id="bg-pic">
       <div class="row">
-        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="workpls">
+        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12">
           <div class="d-flex flex-row flex-wrap justify-content-between">
-            <div class="name"></div>
+            <div class="name pt-3 px-3"></div>
             <div class="search-content position-relative">
               <input type="text" autocomplete="off" class="search-bar inputValue" name="Search Weather"
                 placeholder="Search Weather" aria-label="Search bar for weather" />
@@ -27,29 +27,38 @@
                 <i class="fas fa-search" id="search-icon"></i>
               </div>
             </div>
-            <!--<div class="windSp">{wind-icon}0</div> -->
-            
+            <!--<div class="windSp">{wind-icon}0</div> -->           
+          </div>
+          <div class="WeathTemp text-center">
+            <h1 class="display-1 temp"></h1>
+            <div class="tempIcon degSym"></div>
+            <ul class="list-unstyled">
+              <li class="date"></li>
+              <li class="time"></li>
+              <li class="day"></li>
+              <li class="desc"></li>
+              <li class="feel"></li>
+            </ul>
+          <!-- <div class="WeathTemp col-md-6 offset-md-1 d-flex flex-row justify-content-center"> -->
+            <!-- <button class="btn location btn-primary" type="button">
+                Get Loc
+              </button> -->
           </div>
         </div>
       </div>
     </div>
 
-      <div class="row">
-        <div class="WeathTemp col-md-6 offset-md-1 d-flex flex-row justify-content-center">
-          <!-- <button class="btn location btn-primary" type="button">
-              Get Loc
-            </button> -->
-          <p class="temp"></p>
-          <div class="tempIcon degSym"></div>
-        </div>
-        <div class="col-md-2 position-absolute top-50 end-0 translate-middle">
+      <!-- <div class="row">
+        //Absolute div is reference for positioning
+        <div class="col-md-2 position-absolute top-50 end-0 translate-middle"> 
+        <div class="col-md-2">
           <div class="date"></div>
           <p class="time"></p>
           <p class="day"></p>
           <p class="desc"></p>
           <p class="feel"></p>
         </div>
-      </div>
+      </div> -->
 
   </main>
 </body>

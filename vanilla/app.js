@@ -166,37 +166,39 @@
       .then((pictureData) => {
         let randomNum = Math.floor(Math.random() * 10);
         let unsplashQuery = pictureData.results[randomNum];
-        let imgAltDesc = unsplashQuery.alt_description;
         let imgRegUrl = unsplashQuery.urls.raw;
-        console.log(unsplashQuery)
+        let stylingClass = ['angled_container', 'angled_container--open-right']
+        // let polyShape = `<div class="angled_container angled_container--open-right start-50 translate-middle"></div>`
         
         document.getElementById('bg-pic').style.backgroundImage = `url('${imgRegUrl}')`
         document.getElementById('bg-pic').style.backgroundRepeat = `no-repeat`
         document.getElementById('bg-pic').style.backgroundAttachment = `fixed`
         document.getElementById('bg-pic').style.backgroundPosition = `center`
         document.getElementById('bg-pic').style.backgroundSize = `cover`
-
+        document.getElementById('bg-pic').classList.add(...stylingClass);
+        
+        console.log(unsplashQuery)
         console.log(imgRegUrl);
-        console.log(imgAltDesc);
         return unsplashQuery;
 
       }).catch((err) => console.log("Not found", err));
-    
-    
-    // @TODO InsertAdjacent HTML <div class="angled_container angled_container--open-right"></div> 
   };
 
   searchBar.onkeydown = (e) => {
     //If key name is Enter show alert with current input value
     if (e.key === "Enter") {
       getUnsplashPhoto();
+      // DOW - Date of Week
+      getDow();
       getWeatherData();
-      searchContent.remove();
+      searchBar.value = ''
+      // Removes searchbar
+      // searchContent.remove();
     }
   };
 
-  // DOW Date of Week
-  getDow();
+  // @TODO Use localStorage to save location data but refresh unsplashQuery Image on reload
+
   // getLocation();
 })();
 
