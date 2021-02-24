@@ -218,6 +218,17 @@ import { weatherApiKey, unsplashKey } from './config.js';
       }).catch((err) => console.log("Not found Forcast", err));
       
   }
+  
+  const getYeQuotes = () => {
+    fetch(`https://api.kanye.rest/`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then((data) => console.log(data)).catch((err) => console.log("No quote here", err));
+    }
 
   searchBar.onkeydown = (e) => {
     //If key name is Enter show alert with current input value
@@ -232,35 +243,36 @@ import { weatherApiKey, unsplashKey } from './config.js';
       // searchContent.remove();
     }
   };
-
-  // getWeather.addEventListener("click", function () {
-  //   fetch(
-  //     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       let nameVal = data.name;
-  //       let ctry = data.sys.country;
-  //       let tempVal = Math.round(data.main.temp);
-  //       let descVal = data.weather[0].description;
-  //       let feelVal = Math.round(data.main.feels_like);
-  //       let windVal = Math.round(data.wind.speed);
-
-  //       nameText.innerHTML = `${nameVal}, ${ctry}`;
-  //       temp.innerHTML = `${tempVal}`;
-  //       desc.innerHTML = `desc: ${descVal}`;
-  //       windSp.innerHTML = "wind speed: " + windVal;
-  //       feelsLike.innerHTML = "feels like: " + feelVal;
-  //       getToday();
-  //       getLocTime();
-  //       console.log(data);
-  //     })
-
-  //     .catch((err) => alert("Cannot get browser location."));
-  // });
-
+  getYeQuotes();
   
-  // getLocation();
+  // getWeather.addEventListener("click", function () {
+    //   fetch(
+      //     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+      //   )
+      //     .then((response) => response.json())
+      //     .then((data) => {
+        //       let nameVal = data.name;
+        //       let ctry = data.sys.country;
+        //       let tempVal = Math.round(data.main.temp);
+        //       let descVal = data.weather[0].description;
+        //       let feelVal = Math.round(data.main.feels_like);
+        //       let windVal = Math.round(data.wind.speed);
+        
+        //       nameText.innerHTML = `${nameVal}, ${ctry}`;
+        //       temp.innerHTML = `${tempVal}`;
+        //       desc.innerHTML = `desc: ${descVal}`;
+        //       windSp.innerHTML = "wind speed: " + windVal;
+        //       feelsLike.innerHTML = "feels like: " + feelVal;
+        //       getToday();
+        //       getLocTime();
+        //       console.log(data);
+        //     })
+        
+        //     .catch((err) => alert("Cannot get browser location."));
+        // });
+        
+        
+        // getLocation();
 })();
 
 // @TODO Use localStorage to save location data but refresh unsplashQuery Image on reload   
