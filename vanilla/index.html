@@ -38,6 +38,8 @@
               <li class="day"></li>
               <li class="desc"></li>
               <li class="feel"></li>
+              <li class="min-tmp"></li>
+              <li class="max-tmp"></li>
             </ul>
           <!-- <div class="WeathTemp col-md-6 offset-md-1 d-flex flex-row justify-content-center"> -->
             <!-- <button class="btn location btn-primary" type="button">
@@ -45,6 +47,37 @@
               </button> -->
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row" id="dayForcast">
+        
+        
+        
+        
+        
+        
+        
+        <!-- <md-list ng-hide="vm.isLoading" style="width:250px;margin:0 auto;" ng-repeat="item in vm.weatherData.list">
+          <h3>{{item.dt * 1000 | date:"MMM d, y 'at' h:mm:ss a"}}</h3>
+          <md-list-item class="md-2-line">
+              <img alt="{{item.weather[0].icon}}" ng-src="//openweathermap.org/img/wn/{{item.weather[0].icon}}@2x.png"/>
+              <div class="md-list-item-text">
+                  <h3><strong>{{item.weather[0].main}}</strong></h3>
+                  <p style="text-transform: capitalize">{{item.weather[0].description}}</p>
+              </div>
+          </md-list-item>
+
+          <ul style="list-style: none">
+              <li><strong>Temp:</strong> {{item.main.temp}}</li>
+              <li><strong>Pressure:</strong> {{item.main.pressure}}</li>
+              <li><strong>Humidity:</strong> {{item.main.humidity}}</li>
+              <li><strong>Min Temp:</strong> {{item.main.temp_min}}</li>
+              <li><strong>Max Temp:</strong> {{item.main.temp_max}}</li>
+          </ul>
+
+      </md-list> -->
       </div>
     </div>
 
@@ -62,6 +95,6 @@
 
   </main>
 </body>
-<script src="app.js"></script>
+<script src="app.js" type="module"></script>
 
 </html>

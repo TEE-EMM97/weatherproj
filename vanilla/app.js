@@ -1,4 +1,9 @@
+import { weatherApiKey, unsplashKey } from './config.js';
+
 (function () {
+  
+  "use strict";
+  
   //Location Inputs
   const btn = document.querySelector(".search");
   const inputValue = document.querySelector(".inputValue");
@@ -15,13 +20,29 @@
   const tempIcon = document.querySelector(".tempIcon");
   // const windSp = document.querySelector(".windSp");
   const feelsLike = document.querySelector(".feel");
-  let lat, lon;
+  // let lat, lon;
   const date = document.querySelector(".date");
   const time = document.querySelector(".time");
   const day = document.querySelector(".day");
+  const minTmp = document.querySelector(".min-tmp");
+  const maxTmp = document.querySelector(".max-tmp");
   //Api Key
-  const openWApiKey = "eeaedc426e9a4dac89032e7e32c7b718";
-  const unsplashKey = "tbIiKVHFSESCzUci93zFEiVAMeD84i_PB6AJzRpa4KM";
+  const openWApiKey = weatherApiKey;
+  const unsplashApiKey = unsplashKey;
+  
+  searchIcon.onclick = () => {
+    //Focus Search Bar (Expand it).
+    searchBar.focus();
+    //Show Search title (Concatenate the pre-defined classnames with show classname)
+    // searchTitle.setAttribute("class", searchTitle.className + " show");
+  };
+
+  // searchBar.onblur = () => {
+    //Empty the input content
+    // this.value = "";
+    /*Hide Search Title (replace method returns new string with provided values stripped) so simply removing show class from the class names list*/
+    // searchTitle.setAttribute("class", searchTitle.className.replace("show", ""));
+  // };
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -88,19 +109,6 @@
     return i;
   };
 
-  searchIcon.onclick = () => {
-    //Focus Search Bar (Expand it).
-    searchBar.focus();
-    //Show Search title (Concatenate the pre-defined classnames with show classname)
-    // searchTitle.setAttribute("class", searchTitle.className + " show");
-  };
-
-  searchBar.onblur = () => {
-    //Empty the input content
-    this.value = "";
-    /*Hide Search Title (replace method returns new string with provided values stripped) so simply removing show class from the class names list*/
-    // searchTitle.setAttribute("class", searchTitle.className.replace("show", ""));
-  };
 
   const getWeatherData = () => {
     fetch(
@@ -119,6 +127,8 @@
         let tempVal = Math.round(data.main.temp);
         let descVal = data.weather[0].description;
         let feelVal = Math.round(data.main.feels_like);
+        let minTmpVal = Math.round(data.main.temp_min);
+        let maxTmpVal = Math.round(data.main.temp_max);
         // let windVal = Math.round(data.wind.speed);
         let stylingClass = ["dot", "position-absolute", "bottom-50", "end-50"];
 
@@ -127,8 +137,9 @@
         tempIcon.classList.add(...stylingClass);
         tempIcon.innerHTML = `<div class="position-absolute" id="dot2"></div>`;
         temp.innerHTML = `${tempVal}`;
+        minTmp.innerHTML = "min temp: " + minTmpVal;
+        maxTmp.innerHTML = "max temp: " + maxTmpVal;
         desc.innerHTML = `desc: ${descVal}`;
-        // windSp.innerHTML = "wind speed: " + windVal;
         feelsLike.innerHTML = "feels like: " + feelVal;
         getToday();
         getLocTime();
@@ -137,24 +148,9 @@
       .catch((err) => console.log("Not found"));
   };
 
-  // Creates html element
-  const createNode = (element) => {
-    return document.createElement(element);
-  };
-
-  // Will append created html node to parent
-  const append = (parent, el) => {
-    return parent.appendChild(el);
-  };
-
-  const randNum = () => {
-    let num = 10;
-    return Math.floor(Math.random() * num);
-  }
-
   const getUnsplashPhoto = () => {
     fetch(
-        `https://api.unsplash.com/search/photos/?client_id=${unsplashKey}&query=${inputValue.value}`
+        `https://api.unsplash.com/search/photos/?client_id=${unsplashApiKey}&query=${inputValue.value}`
       )
       .then((response) => {
         if (response.ok) {
@@ -184,12 +180,52 @@
       }).catch((err) => console.log("Not found", err));
   };
 
+  const getDayForcast = () => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${inputValue.value}&appid=${openWApiKey}`
+      ).then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      }).then((data) => {
+        let lat = data.coord.lat;
+        let lon = data.coord.lon;
+
+        return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=${openWApiKey}&units=metric`);
+      }).then((respTwo) => {
+        if (respTwo.ok) {
+          return respTwo.json();
+        } else {
+          return Promise.reject(respTwo);
+        }
+      }).then((dataTwo) => {
+        const htDataa = dataTwo.daily.map(item => {
+          let timestamp = new Date(item.dt * 1000);
+          let readDate = timestamp.toDateString(); 
+          console.log(timestamp)
+          return `<h3>${readDate}</h3>
+                  <ul>
+                    <li>
+                      ${item.temp.day}
+                    </li>
+                  </ul>
+          `; 
+       });
+        document.getElementById("dayForcast").innerHTML = htDataa.join('');
+        console.log(dataTwo)
+      }).catch((err) => console.log("Not found Forcast", err));
+      
+  }
+
   searchBar.onkeydown = (e) => {
     //If key name is Enter show alert with current input value
     if (e.key === "Enter") {
       getUnsplashPhoto();
       // DOW - Date of Week
       getDow();
+      getDayForcast();
       getWeatherData();
       searchBar.value = ''
       // Removes searchbar
@@ -197,9 +233,35 @@
     }
   };
 
-  // @TODO Use localStorage to save location data but refresh unsplashQuery Image on reload
+  // getWeather.addEventListener("click", function () {
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       let nameVal = data.name;
+  //       let ctry = data.sys.country;
+  //       let tempVal = Math.round(data.main.temp);
+  //       let descVal = data.weather[0].description;
+  //       let feelVal = Math.round(data.main.feels_like);
+  //       let windVal = Math.round(data.wind.speed);
 
+  //       nameText.innerHTML = `${nameVal}, ${ctry}`;
+  //       temp.innerHTML = `${tempVal}`;
+  //       desc.innerHTML = `desc: ${descVal}`;
+  //       windSp.innerHTML = "wind speed: " + windVal;
+  //       feelsLike.innerHTML = "feels like: " + feelVal;
+  //       getToday();
+  //       getLocTime();
+  //       console.log(data);
+  //     })
+
+  //     .catch((err) => alert("Cannot get browser location."));
+  // });
+
+  
   // getLocation();
 })();
 
+// @TODO Use localStorage to save location data but refresh unsplashQuery Image on reload   
 // let result = `<img src="${imgRegUrl}" alt="${imgAltDesc}" class="bg-pic" style="width:550px; height:350px; border:1px solid black;">`
